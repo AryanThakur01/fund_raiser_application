@@ -1,4 +1,4 @@
-const { EtherscanProvider } = require('ethers');
+const { EtherscanProvider, ethers } = require('ethers');
 
 class MyEtherscanProvider extends EtherscanProvider {
     constructor(networkish, apiKey) {
@@ -23,8 +23,8 @@ class MyEtherscanProvider extends EtherscanProvider {
                 'Timestamp': new Date(tx.timeStamp * 1000).toUTCString(),
                 'From': tx.from,
                 'To': tx.to,
-                'Value': (parseFloat(tx.value) / 1e18).toFixed(18) + ' ETH', // Convert Wei to ETH
-                'Transaction Fee': (parseFloat(tx.gasUsed) * parseFloat(tx.gasPrice) / 1e18).toFixed(18) + ' ETH' // Gas fee in ETH
+                'Value': ethers.formatEther(tx.value) + ' ETH', 
+                'Transaction Fee': ethers.formatEther(tx.gasPrice * tx.gasUsed) + ' ETH'
             }));
         } else {
             throw new Error('Unexpected API response format');
