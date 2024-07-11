@@ -7,8 +7,6 @@ require('dotenv').config();
 
 const app = express();
 
-constapp = express();
-
 app.use(express.json());
 
 
